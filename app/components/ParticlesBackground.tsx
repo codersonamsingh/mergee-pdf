@@ -40,7 +40,7 @@ const ParticlesBackground: React.FC = () => {
     particles.current = Array.from({ length: PARTICLE_COUNT }, () => ({
       x: randomBetween(0, width),
       y: randomBetween(0, height),
-      vx: randomBetween(-0.3, 0.3),
+      vx: randomBetween(0.1, 0.4), // bias rightward movement
       vy: randomBetween(-0.3, 0.3),
     }));
 
@@ -118,10 +118,9 @@ const ParticlesBackground: React.FC = () => {
       ref={canvasRef}
       style={{
         position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100vw",
-        height: "100vh",
+        inset: 0, // covers the entire viewport
+        width: "100%",
+        height: "100%",
         zIndex: 0,
         pointerEvents: "none",
       }}
