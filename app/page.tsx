@@ -1,5 +1,6 @@
 import Image from "next/image";
 import ParticlesBackground from "./components/ParticlesBackground";
+import PdfMergeUpload from "./components/PdfMergeUpload";
 
 export default function Home() {
   return (
@@ -46,36 +47,7 @@ export default function Home() {
               Drag & drop your PDFs here or click to select files. You can merge up
               to 10 files at once.
             </p>
-            <div className="w-full flex flex-col items-center">
-              <label className="w-full cursor-pointer flex flex-col items-center justify-center border-2 border-dashed border-indigo-300 dark:border-indigo-700 rounded-xl py-10 bg-indigo-50 dark:bg-zinc-800 hover:bg-indigo-100 dark:hover:bg-zinc-700 transition">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-12 h-12 text-indigo-400 mb-2"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M12 16v-8m0 0l-3 3m3-3l3 3m-9 4a9 9 0 1118 0 9 9 0 01-18 0z"
-                  />
-                </svg>
-                <span className="text-indigo-500 font-medium">
-                  Click to upload or drag files here
-                </span>
-                <input
-                  type="file"
-                  accept="application/pdf"
-                  multiple
-                  className="hidden"
-                />
-              </label>
-            </div>
-            <button className="mt-6 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-xl transition shadow-lg">
-              Merge PDFs
-            </button>
+            <PdfMergeUpload />
           </div>
         </section>
 

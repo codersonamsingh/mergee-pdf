@@ -40,8 +40,8 @@ const ParticlesBackground: React.FC = () => {
     particles.current = Array.from({ length: PARTICLE_COUNT }, () => ({
       x: randomBetween(0, width),
       y: randomBetween(0, height),
-      vx: randomBetween(0.1, 0.4), // bias rightward movement
-      vy: randomBetween(-0.3, 0.3),
+      vx: randomBetween(-0.7, 0.7), // increased speed and allow both directions
+      vy: randomBetween(-0.7, 0.7),
     }));
 
     function draw() {
@@ -79,10 +79,19 @@ const ParticlesBackground: React.FC = () => {
 
     function update() {
       for (const p of particles.current) {
+        // Add a small random jitter for more natural movement
+        p.vx += randomBetween(-0.05, 0.05);
+        p.vy += randomBetween(-0.05, 0.05);
+        // Clamp velocity to prevent runaway speeds
+        p.vx = Math.max(-1.2, Math.min(1.2, p.vx));
+        p.vy = Math.max(-1.2, Math.min(1.2, p.vy));
         p.x += p.vx;
         p.y += p.vy;
-        if (p.x < 0 || p.x > width) p.vx *= -1;
-        if (p.y < 0 || p.y > height) p.vy *= -1;
+        // Bounce off edges smoothly
+        if (p.x < 0) { p.x = 0; p.vx *= -1; }
+        if (p.x > width) { p.x = width; p.vx *= -1; }
+        if (p.y < 0) { p.y = 0; p.vy *= -1; }
+        if (p.y > height) { p.y = height; p.vy *= -1; }
       }
     }
 
