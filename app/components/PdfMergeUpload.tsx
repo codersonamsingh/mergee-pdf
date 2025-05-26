@@ -9,13 +9,20 @@ function PdfMergeUpload() {
 
   const handleFiles = (files: FileList | null) => {
     if (!files) return;
-    const fileArr = Array.from(files).filter(f => f.type === "application/pdf");
-    setSelectedFiles(fileArr.slice(0, 10));
+    const newFiles = Array.from(files).filter(f => f.type === "application/pdf");
+    // Merge with existing files, avoid duplicates by name+size
+    const mergedFiles = [...selectedFiles, ...newFiles].filter(
+      (file, idx, arr) =>
+        arr.findIndex(f => f.name === file.name && f.size === file.size) === idx
+    );
+    setSelectedFiles(mergedFiles.slice(0, 10));
     setError(null);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     handleFiles(e.target.files);
+    // Reset input value to allow re-selecting the same file(s)
+    if (inputRef.current) inputRef.current.value = "";
   };
 
   const handleDrop = (e: React.DragEvent<HTMLLabelElement>) => {
